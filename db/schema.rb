@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140815181827) do
+ActiveRecord::Schema.define(version: 20140820222539) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 20140815181827) do
     t.string   "withdrawn_cosponsors_count"
   end
 
-  add_index "bills", ["bill_id"], name: "index_bills_on_bill_id", using: :btree
+  add_index "bills", ["bill_id"], name: "index_bills_on_bill_id", unique: true, using: :btree
 
   create_table "legislators", force: true do |t|
     t.integer "bills_id"
@@ -67,6 +67,6 @@ ActiveRecord::Schema.define(version: 20140815181827) do
     t.string  "website"
   end
 
-  add_index "legislators", ["bioguide_id"], name: "index_legislators_on_bioguide_id", using: :btree
+  add_index "legislators", ["bioguide_id"], name: "index_legislators_on_bioguide_id", unique: true, using: :btree
 
 end
