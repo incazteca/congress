@@ -23,7 +23,8 @@ class CreateBills < ActiveRecord::Migration
       t.integer :cosponsors_count
       t.string :withdrawn_cosponsors_count
 
-      add_index :bill_id
+      t.index :bill_id
     end
   end
 end
+

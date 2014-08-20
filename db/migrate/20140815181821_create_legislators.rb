@@ -25,7 +25,8 @@ class CreateLegislators < ActiveRecord::Migration
       t.string :state_name
       t.string :website
 
-      add_index :bioguide_id
+      t.index :bioguide_id
     end
   end
 end
+
