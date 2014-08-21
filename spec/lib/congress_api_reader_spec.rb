@@ -3,14 +3,14 @@ require 'rails_helper'
 describe CongressAPIReader do
   let (:api_key) { '300952facb214f5983867ed073e7e4ba' }
 
-  let (:base_url) { 'https://congress.api.sunlightfoundation.com/' }
+  let (:base_url) { 'https://congress.api.sunlightfoundation.com' }
   let (:api_reader) { CongressAPIReader.new(base_url, api_key) }
 
-  let (:bad_base_url) { 'https://congress.api.thisisabadurl.com/' }
-  let (:bad_api_reader) { CongressAPIReader.new(base_url, api_key) }
+  let (:bad_base_url) { 'https://congress.api.dummyapihttp.com' }
+  let (:bad_api_reader) { CongressAPIReader.new(bad_base_url, api_key) }
 
   it "defaults to / when no argument given to get" do
-    api_reader.get("/")
+    api_reader.get
 
     expect(api_reader.results[0][:message]).to eq('I live!')
     expect(api_reader.status).to eq(200)
@@ -33,7 +33,8 @@ describe CongressAPIReader do
   it "Is able to retrieve many bills" do
     api_reader.get("/bills")
 
-    expect(api_reader.results.size).to gt(0)
+    expect(api_reader.results[0][:bill_id]).not_to be_nil
+    expect(api_reader.results.size).to be > 0
     expect(api_reader.status).to eq(200)
   end
 
@@ -46,6 +47,9 @@ describe CongressAPIReader do
 
   it "Is able to retrieve many legislators" do
     api_reader.get("/legislators")
+
+    expect(api_reader.results[0][:bioguide_id]).not_to be_nil
+    expect(api_reader.results.size).to be > 0
     expect(api_reader.status).to eq(200)
   end
 
