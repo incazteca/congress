@@ -16,3 +16,7 @@
 /tmp
 
 /vendor/bundle
+
+# Vim swap files
+*.swp
+*.swo
