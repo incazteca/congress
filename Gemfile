@@ -36,5 +36,15 @@ gem 'spring',        group: :development
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
 gem 'pg'
 gem 'foreman'
+gem 'pry'
+
+group :development, :test do
+  gem 'factory_girl_rails'
+  gem 'rspec-rails'
+  gem 'cucumber-rails', :require => false, group: :test
+  gem 'selenium-webdriver'
+  gem 'database_cleaner'
+end
