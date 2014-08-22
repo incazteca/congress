@@ -56,6 +56,13 @@ describe CongressAPIReader do
     expect(api_reader.status).to eq(http_success)
   end
 
+  it "Is able to get total page numbers" do
+    api_reader.get("/bills")
+
+    expect(api_reader.page_count).to be > 0
+    expect(api_reader.status).to eq(http_success)
+  end
+
   it "Is able to retrieve a single legislator based on bioguide_id" do
     api_reader.get("/legislators", {:bioguide_id => "D000563"})
 
