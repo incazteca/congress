@@ -4,7 +4,7 @@ require 'pry'
 
 class CongressAPIReader
   attr_accessor :status, :data, :results
-  attr_reader :count, :page
+  attr_reader :count, :page, :page_count
   attr_writer :api_key, :base_url
 
   def initialize(base_url, api_key)
@@ -56,6 +56,7 @@ class CongressAPIReader
     else
       @results = results[:results]
       @page = results[:page][:page]
+      @page_count = results[:page][:count]
       @count = results[:count]
     end
   end
