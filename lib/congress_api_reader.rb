@@ -24,23 +24,25 @@ class CongressAPIReader
 
     @data = Hash.new
 
-    response = open(@base_url+path+api_key+per_page+query_string)
+    begin
+      response = open(@base_url+path+api_key+per_page+query_string)
+    rescue SocketError => sock_e
+      @data[:api_reader_message] = sock_e.message
+      @data[:api_reader_success] = false
+    rescue OpenURI::HTTPError => http_e
+      @data[:api_reader_message] = http_e.message
+      @data[:api_reader_success] = false
+      @status = 404
+    else
+      @status = response.status[0].to_i
 
-    @status = response.status[0].to_i
-
-    if @status == 200
       @results = Array.new
 
       @results[0] = JSON.parse(response.read, symbolize_names: :true) if path == '/'
       @results = JSON.parse(response.read, symbolize_names: :true)[:results] if path != '/'
 
       @data[:api_reader_success] = true
+      @data[:api_reader_message] = 'No results found' if @results.size == 0 or @results == nil
     end
-
-    @data[:api_reader_message] = 'No results found' if @results.size == 0 or @results == nil
-    @data[:api_reader_message] = 'Path not found' if @status == 404
-
-    @data[:api_reader_success] = false if @status != 200
-
   end
 end

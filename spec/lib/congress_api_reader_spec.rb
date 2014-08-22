@@ -57,15 +57,15 @@ describe CongressAPIReader do
     bad_api_reader.get("/")
 
     expect(bad_api_reader.data[:api_reader_success]).to eq(false)
-    expect(bad_api_reader.data[:api_reader_message]).to eq('Path not found')
-    expect(bad_api_reader.status).to eq(404)
+    expect(bad_api_reader.data[:api_reader_message]).to eq('getaddrinfo: nodename nor servname provided, or not known')
+    expect(bad_api_reader.status).to be_nil
   end
 
   it "Is able to let us know resource doesn't exist" do
     api_reader.get("/dummy_path")
 
     expect(api_reader.data[:api_reader_success]).to eq(false)
-    expect(api_reader.data[:api_reader_message]).to eq('Path not found')
+    expect(api_reader.data[:api_reader_message]).to eq('404 Not Found')
     expect(api_reader.status).to eq(404)
   end
 
