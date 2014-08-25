@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140820222539) do
+ActiveRecord::Schema.define(version: 20140825204802) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20140820222539) do
     t.string   "number"
     t.string   "congress"
     t.string   "chamber"
-    t.string   "official_title"
+    t.text     "official_title"
     t.string   "popular_title"
     t.string   "short_title"
     t.string   "enacted_as"
