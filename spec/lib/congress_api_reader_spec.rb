@@ -12,93 +12,88 @@ describe CongressAPIReader do
   let (:http_success)  { 200 }
   let (:http_failure)  { 404 }
 
-  it "defaults to / when no argument given to get" do
-    api_reader.get
+  # TODO Look into web mock
 
-    expect(api_reader.results[0][:message]).to eq('I live!')
-    expect(api_reader.status).to eq(http_success)
+  it "defaults to / when no argument given to get" do
+    response = api_reader.get
+
+    expect(response.results[0][:message]).to eq('I live!')
+    expect(response.status).to eq(http_success)
   end
 
   it "Is able to retrieve a response" do
-    api_reader.get("/")
+    response = api_reader.get("/")
 
-    expect(api_reader.results[0][:message]).to eq('I live!')
-    expect(api_reader.status).to eq(http_success)
+    expect(response.results[0][:message]).to eq('I live!')
+    expect(response.status).to eq(http_success)
   end
 
   it "Is able to retrieve a single bill based on bill id" do
-    api_reader.get("/bills", { :bill_id => "hr3461-111" } )
+    response = api_reader.get("/bills", { :bill_id => "hr3461-111" } )
 
-    expect(api_reader.results[0][:bill_id]).to eq('hr3461-111')
-    expect(api_reader.status).to eq(http_success)
+    expect(response.results[0][:bill_id]).to eq('hr3461-111')
+    expect(response.status).to eq(http_success)
   end
 
   it "Is able to retrieve many bills" do
-    api_reader.get("/bills")
+    response = api_reader.get("/bills")
 
-    expect(api_reader.results[0][:bill_id]).not_to be_nil
-    expect(api_reader.results.size).to be > 0
-    expect(api_reader.status).to eq(http_success)
+    expect(response.results[0][:bill_id]).not_to be_nil
+    expect(response.results).not_to be_empty
+    expect(response.status).to eq(http_success)
   end
 
   it "Is able to get the result without need of counting the results" do
-    api_reader.get("/bills", { :bill_id => "hr3461-111" } )
+    response = api_reader.get("/bills", { :bill_id => "hr3461-111" } )
 
-    expect(api_reader.count).to eq(1)
-    expect(api_reader.status).to eq(http_success)
+    expect(response.count).to eq(1)
+    expect(response.status).to eq(http_success)
   end
 
   it "Is able to go to other page numbers" do
     pagenum = 2
-    api_reader.get("/bills", { :bill_id => "hr3461-111", :page => pagenum } )
+    response = api_reader.get("/bills", { :bill_id => "hr3461-111", :page => pagenum } )
 
-    expect(api_reader.page).to eq(pagenum)
-    expect(api_reader.status).to eq(http_success)
-  end
-
-  it "Is able to get total page numbers" do
-    api_reader.get("/bills")
-
-    expect(api_reader.page_count).to be > 0
-    expect(api_reader.status).to eq(http_success)
+    expect(response.page).to eq(pagenum)
+    expect(response.status).to eq(http_success)
   end
 
   it "Is able to retrieve a single legislator based on bioguide_id" do
-    api_reader.get("/legislators", {:bioguide_id => "D000563"})
+    response = api_reader.get("/legislators", {:bioguide_id => "D000563"})
 
-    expect(api_reader.results[0][:bioguide_id]).to eq('D000563')
-    expect(api_reader.status).to eq(http_success)
+    expect(response.results[0][:bioguide_id]).to eq('D000563')
+    expect(response.status).to eq(http_success)
   end
 
   it "Is able to retrieve many legislators" do
-    api_reader.get("/legislators")
+    response = api_reader.get("/legislators")
 
-    expect(api_reader.results[0][:bioguide_id]).not_to be_nil
-    expect(api_reader.results.size).to be > 0
-    expect(api_reader.status).to eq(http_success)
+    expect(response.results[0][:bioguide_id]).not_to be_nil
+    expect(response.results.size).to be > 0
+    expect(response.status).to eq(http_success)
   end
 
   it "Is able to handle being given a bad base url" do
-    bad_api_reader.get("/")
+    bad_response = api_reader.get("/")
 
-    expect(bad_api_reader.data[:api_reader_success]).to eq(false)
+    expect(bad_api_reader.data[:api_reader_success]).to be_false
     expect(bad_api_reader.data[:api_reader_message]).to eq('getaddrinfo: nodename nor servname provided, or not known')
     expect(bad_api_reader.status).to be_nil
   end
 
   it "Is able to let us know resource doesn't exist" do
-    api_reader.get("/dummy_path")
+    response = api_reader.get("/dummy_path")
 
-    expect(api_reader.data[:api_reader_success]).to eq(false)
-    expect(api_reader.data[:api_reader_message]).to eq('404 Not Found')
-    expect(api_reader.status).to eq(http_failure)
+    expect(response.data[:api_reader_success]).to be_false
+    expect(response.data[:api_reader_message]).to eq('404 Not Found')
+    expect(response.status).to eq(http_failure)
   end
 
   it "Is able to know there are no results" do
-    api_reader.get("/legislators", {:query => "Fitzgerald"})
+    response = api_reader.get("/legislators", {:query => "Fitzgerald"})
 
-    expect(api_reader.data[:api_reader_success]).to eq(true)
-    expect(api_reader.data[:api_reader_message]).to eq('No results found')
-    expect(api_reader.status).to eq(http_success)
+    expect(response.data[:api_reader_success]).to be_true
+    expect(response.data[:api_reader_message]).to eq('No results found')
+    expect(response.status).to eq(http_success)
   end
 end
