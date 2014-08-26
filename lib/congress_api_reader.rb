@@ -14,50 +14,65 @@ class CongressAPIReader
 
   def get(path = '/', options = {})
 
-    api_key = "?apikey=#{@api_key}"
+    response = open(@base_url+path+query_string(options))
 
-    per_page = "&per_page=50"
+    status_ar = response.status
+    results = JSON.parse(response.read, symbolize_names: true)
 
-    query_string = ''
-    query_string += "&query=#{options[:query] }" if options[:query] != nil
-    query_string += "&bill_id=#{options[:bill_id] }" if options[:bill_id] != nil
-    query_string += "&bioguide_id=#{options[:bioguide_id] }" if options[:bioguide_id] != nil
-    query_string += "&page=#{options[:page] }" if options[:page] != nil
+    response_data(results, status_ar)
 
-    @data = Hash.new
+  rescue SocketError => sock_e
+    puts sock_e.message
+    #response_data([], nil, sock_e.message)
+  rescue OpenURI::HTTPError => http_e
+    puts http_e.message
+    #response_data([] , 404, http_e.message)
+  end
 
-    begin
-      response = open(@base_url+path+api_key+per_page+query_string)
-    rescue SocketError => sock_e
-      set_data(sock_e.message, false)
-    rescue OpenURI::HTTPError => http_e
-      set_data(http_e.message, false)
-      @status = 404
-    else
-      @status = response.status[0].to_i
+  private
 
-      set_results(JSON.parse(response.read, symbolize_names: :true), path)
-      set_data('No results found', true) if @count == 0
-      set_data('Success', true) if @count > 0
+  def response_data(results, status_ar,  message = '')
+
+    response = Struct.new(:http_results, :http_status, :message) do
+      def results
+        http_results[:results]
+      end
+
+      def status
+       http_status
+      end
+
+      def message
+        message
+      end
+
+      def page
+        0 unless http_results[:page][:page]
+      end
+
+      def per_page
+        0 unless http_results[:page][:per_page]
+      end
+
+      def count
+        0 unless http_results[:count]
+      end
     end
+
+    message = status_ar[1] if message == ''
+    return response.new(results, status_ar[0].to_i, message)
   end
 
-  def set_data(message, success)
-      @data[:api_reader_message] = message
-      @data[:api_reader_success] = success
-  end
+  def query_string(options)
+    query_string = "?apikey=#{@api_key}"
 
-  def set_results(results, path)
-    @results = Array.new
-    if path == '/'
-      @results[0] = results
-      @page = 0
-      @count = 0
-    else
-      @results = results[:results]
-      @page = results[:page][:page]
-      @page_count = results[:page][:count]
-      @count = results[:count]
+    query_string += "&per_page=50" if options[:per_page] == nil
+
+    options.each do |k,v|
+      query_string += "&#{k.to_s}=#{v}"
     end
+
+    query_string
   end
+
 end
