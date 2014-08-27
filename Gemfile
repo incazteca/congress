@@ -47,5 +47,5 @@ group :development, :test do
   gem 'cucumber-rails', :require => false, group: :test
   gem 'selenium-webdriver'
   gem 'database_cleaner'
-  gem 'webmock'
+  gem 'webmock', :require => false, group: :test
 end
