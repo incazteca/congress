@@ -262,6 +262,9 @@ RSpec.configure do |config|
     stub_request(:get, "https://congress.api.sunlightfoundation.com/dummy_path?apikey=300952facb214f5983867ed073e7e4ba&per_page=50").
       with(:headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
       to_return(:status => [404, 'Not Found'], :body => '', :headers => {})
+
+    stub_request(:get, "https://congress.api.dummyapihttp.com/?apikey=300952facb214f5983867ed073e7e4ba&per_page=50").
+      to_raise(SocketError.new('getaddrinfo: nodename nor servname provided, or not known'))
   end
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.
