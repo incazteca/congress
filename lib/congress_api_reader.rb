@@ -56,6 +56,11 @@ class CongressAPIReader
         http_results[:page][:per_page]
       end
 
+      def count_on_page
+        return 0 if http_results == nil
+        http_results[:page][:count]
+      end
+
       def count
         return 0 if http_results == nil
         http_results[:count]

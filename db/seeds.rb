@@ -13,10 +13,8 @@ def create_bills(bills = [])
     Bill.column_names.each do |column|
 
       if /^history_.*/ =~ column
-        col_split = column.split('_', 2)
-        params[column] = bill[col_split[0].to_sym][col_split[1].to_sym]
-      elsif column == 'related_bill_ids' || column == 'enacted_as'
-        next
+        col_split = column.split('_', 2).map(&:to_sym)
+        params[column] = bill[col_split[0]][col_split[1]]
       else
         params[column] = bill["#{column}".to_sym]
       end
@@ -49,12 +47,12 @@ max_per_page = 50
 page_num = 1
 
 loop do
-  api_reader.get("/bills", { :query => "highway", :page => page_num })
 
-  create_bills(api_reader.results)
+  response = api_reader.get("/bills", { :query => "highway", :page => page_num, :per_page => max_per_page })
+  create_bills(response.results)
 
   page_num +=1
-  break if api_reader.page_count < max_per_page
+  break if response.count_on_page < max_per_page
 end
 
 # Begin populating Legislators
@@ -62,11 +60,10 @@ end
 page_num = 1
 
 loop do
-  api_reader.get("/legislators", { :page => page_num })
-
-  create_legislators(api_reader.results)
+  response = api_reader.get("/legislators", { :page => page_num, :per_page => max_per_page })
+  create_legislators(response.results)
 
   page_num +=1
-  break if api_reader.page_count < max_per_page
+  break if response.count_on_page < max_per_page
 end
 
