@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'pry'
 
 describe CongressAPIReader do
   let (:api_key) { '300952facb214f5983867ed073e7e4ba' }
@@ -10,7 +11,7 @@ describe CongressAPIReader do
   let (:bad_api_reader) { CongressAPIReader.new(bad_base_url, api_key) }
 
   let (:http_success)  { 200 }
-  let (:http_failure)  { 404 }
+  let (:http_missing)  { 404 }
 
   # TODO Look into web mock
 
@@ -74,26 +75,23 @@ describe CongressAPIReader do
   end
 
   it "Is able to handle being given a bad base url" do
-    bad_response = api_reader.get("/")
+    bad_response = bad_api_reader.get("/")
 
-    expect(bad_api_reader.data[:api_reader_success]).to be_false
-    expect(bad_api_reader.data[:api_reader_message]).to eq('getaddrinfo: nodename nor servname provided, or not known')
-    expect(bad_api_reader.status).to be_nil
+    expect(bad_response.message).to eq('getaddrinfo: nodename nor servname provided, or not known')
+    expect(bad_response.status).to be_nil
   end
 
   it "Is able to let us know resource doesn't exist" do
     response = api_reader.get("/dummy_path")
 
-    expect(response.data[:api_reader_success]).to be_false
-    expect(response.data[:api_reader_message]).to eq('404 Not Found')
-    expect(response.status).to eq(http_failure)
+    expect(response.message).to eq('404 Not Found')
+    expect(response.status).to eq(http_missing)
   end
 
   it "Is able to know there are no results" do
     response = api_reader.get("/legislators", {:query => "Fitzgerald"})
 
-    expect(response.data[:api_reader_success]).to be_true
-    expect(response.data[:api_reader_message]).to eq('No results found')
+    expect(response.message).to eq('No results found')
     expect(response.status).to eq(http_success)
   end
 end
