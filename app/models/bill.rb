@@ -1,3 +1,3 @@
 class Bill < ActiveRecord::Base
-  has_one :legislator
+  belongs_to :legislator
 end
