@@ -229,41 +229,36 @@ RSpec.configure do |config|
     }
   }'
 
+  api_key = '300952facb214f5983867ed073e7e4ba'
+
   config.before(:each) do
 
-    stub_request(:get, "https://congress.api.sunlightfoundation.com/?apikey=300952facb214f5983867ed073e7e4ba&per_page=50").
-      with(:headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
+    stub_request(:get, "https://congress.api.sunlightfoundation.com/").
+      with(:query => {'apikey' => api_key, 'per_page' => '50' }, :headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
       to_return(:status => [200, 'OK'], :body => basic_response, :headers => {})
 
-    stub_request(:get, "https://congress.api.sunlightfoundation.com/bills?apikey=300952facb214f5983867ed073e7e4ba&bill_id=hr3461-111&per_page=50").
-      with(:headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
+    stub_request(:get, "https://congress.api.sunlightfoundation.com/bills").
+      with(:query => hash_including({'apikey' => api_key, 'per_page' => '50'}), :headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
       to_return(:status => [200, 'OK'], :body => bill_response, :headers => {})
 
-    stub_request(:get, "https://congress.api.sunlightfoundation.com/bills?apikey=300952facb214f5983867ed073e7e4ba&per_page=50").
-      with(:headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
-      to_return(:status => [200, 'OK'], :body => bill_response, :headers => {})
-
-    stub_request(:get, "https://congress.api.sunlightfoundation.com/bills?apikey=300952facb214f5983867ed073e7e4ba&bill_id=hr3461-111&page=2&per_page=50").
-      with(:headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
+    stub_request(:get, "https://congress.api.sunlightfoundation.com/bills").
+      with(:query => {'apikey' => api_key, 'per_page' => '50', 'bill_id' => 'hr3461-111', 'page' => '2'}, :headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
       to_return(:status => [200, 'OK'], :body => bill_response_page_2, :headers => {})
 
-    stub_request(:get, "https://congress.api.sunlightfoundation.com/legislators?apikey=300952facb214f5983867ed073e7e4ba&per_page=50").
-      with(:headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
+    stub_request(:get, "https://congress.api.sunlightfoundation.com/legislators").
+      with(:query => hash_including({'apikey' => api_key, 'per_page' => '50'}), :headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
       to_return(:status => [200, 'OK'], :body => legislator_response, :headers => {})
 
-    stub_request(:get, "https://congress.api.sunlightfoundation.com/legislators?apikey=300952facb214f5983867ed073e7e4ba&bioguide_id=D000563&per_page=50").
-      with(:headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
-      to_return(:status => [200, 'OK'], :body => legislator_response, :headers => {})
-
-    stub_request(:get, "https://congress.api.sunlightfoundation.com/legislators?apikey=300952facb214f5983867ed073e7e4ba&per_page=50&query=Fitzgerald").
-      with(:headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
+    stub_request(:get, "https://congress.api.sunlightfoundation.com/legislators").
+      with(:query => {'apikey' => api_key, 'per_page' => '50', 'query' => 'Fitzgerald'}, :headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
       to_return(:status => [200, 'OK'], :body => legislator_no_results, :headers => {})
 
-    stub_request(:get, "https://congress.api.sunlightfoundation.com/dummy_path?apikey=300952facb214f5983867ed073e7e4ba&per_page=50").
-      with(:headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
+    stub_request(:get, "https://congress.api.sunlightfoundation.com/dummy_path").
+      with(:query => {'apikey' => api_key, 'per_page' => '50' }, :headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
       to_return(:status => [404, 'Not Found'], :body => '', :headers => {})
 
-    stub_request(:get, "https://congress.api.dummyapihttp.com/?apikey=300952facb214f5983867ed073e7e4ba&per_page=50").
+    stub_request(:get, "https://congress.api.dummyapihttp.com").
+      with(:query => {'apikey' => api_key, 'per_page' => '50' }, :headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
       to_raise(SocketError.new('getaddrinfo: nodename nor servname provided, or not known'))
   end
 # The settings below are suggested to provide a good initial experience
