@@ -11,14 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140825204802) do
+ActiveRecord::Schema.define(version: 20140827202652) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "bills", force: true do |t|
     t.string   "bill_id"
-    t.string   "related_bill_ids"
     t.string   "bill_type"
     t.string   "number"
     t.string   "congress"
@@ -26,7 +25,6 @@ ActiveRecord::Schema.define(version: 20140825204802) do
     t.text     "official_title"
     t.string   "popular_title"
     t.string   "short_title"
-    t.string   "enacted_as"
     t.boolean  "history_active"
     t.boolean  "history_awaiting_signature"
     t.boolean  "history_enacted"
