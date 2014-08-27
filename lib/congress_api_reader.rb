@@ -3,9 +3,7 @@ require 'json'
 require 'pry'
 
 class CongressAPIReader
-  attr_accessor :status, :data, :results
-  attr_reader :count, :page, :page_count
-  attr_writer :api_key, :base_url
+  attr_reader :api_key, :base_url
 
   def initialize(base_url, api_key)
     @api_key = api_key
@@ -17,24 +15,25 @@ class CongressAPIReader
     response = open(@base_url+path+query_string(options))
 
     status_ar = response.status
-    results = JSON.parse(response.read, symbolize_names: true)
 
-    response_data(results, status_ar)
+    results = JSON.parse(response.read, symbolize_names: true) if path != '/'
+    results = [ JSON.parse(response.read, symbolize_names: true) ] if path == '/'
+
+    response_data(path, results, status_ar[0].to_i, status_ar[1])
 
   rescue SocketError => sock_e
-    puts sock_e.message
-    #response_data([], nil, sock_e.message)
+    response_data(path, nil, nil, sock_e.message)
   rescue OpenURI::HTTPError => http_e
-    puts http_e.message
-    #response_data([] , 404, http_e.message)
+    response_data(path, nil, http_e.message.split[0].to_i, http_e.message)
   end
 
   private
 
-  def response_data(results, status_ar,  message = '')
+  def response_data(path, results, status, message)
 
-    response = Struct.new(:http_results, :http_status, :message) do
+    response = Struct.new(:path, :http_results, :http_status, :http_message) do
       def results
+        return http_results if path == '/'
         http_results[:results]
       end
 
@@ -43,24 +42,27 @@ class CongressAPIReader
       end
 
       def message
-        message
+        return 'No results found' if count == 0 && http_results != nil
+        http_message
       end
 
       def page
-        0 unless http_results[:page][:page]
+        return 0 if http_results == nil
+        http_results[:page][:page]
       end
 
       def per_page
-        0 unless http_results[:page][:per_page]
+        return 0 if http_results == nil
+        http_results[:page][:per_page]
       end
 
       def count
-        0 unless http_results[:count]
+        return 0 if http_results == nil
+        http_results[:count]
       end
     end
 
-    message = status_ar[1] if message == ''
-    return response.new(results, status_ar[0].to_i, message)
+    return response.new(path, results, status, message)
   end
 
   def query_string(options)
