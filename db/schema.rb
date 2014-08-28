@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140827202652) do
+ActiveRecord::Schema.define(version: 20140827215005) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,12 +36,12 @@ ActiveRecord::Schema.define(version: 20140827202652) do
     t.string   "sponsor_id"
     t.integer  "cosponsors_count"
     t.string   "withdrawn_cosponsors_count"
+    t.integer  "legislators_id"
   end
 
   add_index "bills", ["bill_id"], name: "index_bills_on_bill_id", unique: true, using: :btree
 
   create_table "legislators", force: true do |t|
-    t.integer "bills_id"
     t.string  "bioguide_id"
     t.string  "title"
     t.string  "first_name"
