@@ -40,7 +40,7 @@ gem 'spring',        group: :development
 gem 'pg'
 gem 'foreman'
 gem 'pry'
-gem 'haml'
+gem 'haml-rails'
 
 group :development, :test do
   gem 'factory_girl_rails'
