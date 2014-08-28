@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140827215005) do
+ActiveRecord::Schema.define(version: 20140828210546) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,18 @@ ActiveRecord::Schema.define(version: 20140827215005) do
 
   add_index "bills", ["bill_id"], name: "index_bills_on_bill_id", unique: true, using: :btree
 
+  create_table "congress_houses", primary_key: "congress_house_id", force: true do |t|
+    t.text "congress_house", null: false
+  end
+
+  add_index "congress_houses", ["congress_house"], name: "congress_houses__u_congress_house", unique: true, using: :btree
+
+  create_table "leadership_roles", primary_key: "leadership_role_id", force: true do |t|
+    t.text "leadership_role", null: false
+  end
+
+  add_index "leadership_roles", ["leadership_role"], name: "leadership_roles__u_leadership_role", unique: true, using: :btree
+
   create_table "legislators", force: true do |t|
     t.string  "bioguide_id"
     t.string  "title"
@@ -66,5 +78,17 @@ ActiveRecord::Schema.define(version: 20140827215005) do
   end
 
   add_index "legislators", ["bioguide_id"], name: "index_legislators_on_bioguide_id", unique: true, using: :btree
+
+  create_table "tag_types", primary_key: "tag_type_id", force: true do |t|
+    t.text "tag_type", null: false
+  end
+
+  add_index "tag_types", ["tag_type"], name: "tag_types__u_tag_type", unique: true, using: :btree
+
+  create_table "title_types", primary_key: "title_type_id", force: true do |t|
+    t.text "title_type", null: false
+  end
+
+  add_index "title_types", ["title_type"], name: "title_types__u_title_type", unique: true, using: :btree
 
 end
