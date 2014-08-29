@@ -11,20 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140829145127) do
+ActiveRecord::Schema.define(version: 20140829162956) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "bills", force: true do |t|
     t.string   "bill_id"
-    t.string   "bill_type"
     t.string   "number"
     t.string   "congress"
-    t.string   "chamber"
-    t.text     "official_title"
-    t.string   "popular_title"
-    t.string   "short_title"
     t.boolean  "history_active"
     t.boolean  "history_awaiting_signature"
     t.boolean  "history_enacted"
@@ -37,6 +32,7 @@ ActiveRecord::Schema.define(version: 20140829145127) do
     t.integer  "cosponsors_count"
     t.string   "withdrawn_cosponsors_count"
     t.integer  "legislators_id"
+    t.integer  "congress_house_id"
   end
 
   add_index "bills", ["bill_id"], name: "index_bills_on_bill_id", unique: true, using: :btree
@@ -65,16 +61,16 @@ ActiveRecord::Schema.define(version: 20140829145127) do
     t.date    "birthday"
     t.date    "term_end"
     t.date    "term_start"
-    t.string  "chamber"
     t.string  "contact_form"
     t.string  "district"
     t.string  "gender"
     t.string  "leadership_role"
     t.string  "office"
-    t.string  "party"
     t.string  "state"
     t.string  "state_name"
     t.string  "website"
+    t.integer "congress_house_id"
+    t.integer "party_id"
   end
 
   add_index "legislators", ["bioguide_id"], name: "index_legislators_on_bioguide_id", unique: true, using: :btree
@@ -91,10 +87,28 @@ ActiveRecord::Schema.define(version: 20140829145127) do
 
   add_index "tag_types", ["tag_type"], name: "tag_types__u_tag_type", unique: true, using: :btree
 
+  create_table "tags", force: true do |t|
+    t.integer "users_id"
+    t.integer "tag_type_id"
+  end
+
   create_table "title_types", primary_key: "title_type_id", force: true do |t|
     t.text "title_type", null: false
   end
 
   add_index "title_types", ["title_type"], name: "title_types__u_title_type", unique: true, using: :btree
+
+  create_table "titles", force: true do |t|
+    t.integer "bills_id"
+    t.text    "title"
+    t.integer "title_type_id"
+  end
+
+  create_table "users", force: true do |t|
+    t.string "email",      null: false
+    t.string "password",   null: false
+    t.string "first_name", null: false
+    t.string "last_name",  null: false
+  end
 
 end
