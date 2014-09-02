@@ -1,4 +1,4 @@
 class Title < ActiveRecord::Base
   belongs_to :bill
-  belongs_to :title_type
+  lookup_for :title_type
 end
