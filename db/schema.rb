@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140829172722) do
+ActiveRecord::Schema.define(version: 20140829181040) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,11 +37,11 @@ ActiveRecord::Schema.define(version: 20140829172722) do
 
   add_index "bills", ["bill_id"], name: "index_bills_on_bill_id", unique: true, using: :btree
 
-  create_table "congress_houses", primary_key: "congress_house_id", force: true do |t|
-    t.text "congress_house", null: false
+  create_table "chambers", primary_key: "chamber_id", force: true do |t|
+    t.text "chamber", null: false
   end
 
-  add_index "congress_houses", ["congress_house"], name: "congress_houses__u_congress_house", unique: true, using: :btree
+  add_index "chambers", ["chamber"], name: "chambers__u_chamber", unique: true, using: :btree
 
   create_table "leadership_roles", primary_key: "leadership_role_id", force: true do |t|
     t.text "leadership_role", null: false
