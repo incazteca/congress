@@ -12,3 +12,18 @@ Feature: Allow users to search by Bill id, legislator last name or bioguide_id, 
         When User searches by bioguide id
         Then User should be taken to page for that legislator
 
+    Scenario: User searches for bill by title
+        Given User is on site
+        When User searches by title
+        Then User should be taken to result page with relevant bills
+
+    Scenario: User searches but no results
+        Given User is on site
+        When User searches with unsearchable string
+        Then User should be taken to result page with no results message
+
+    Scenario: User searches without filling field
+        Given User is on site
+        When User searches without filling search field
+        Then User should be taken to result page with default results
+
