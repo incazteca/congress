@@ -48,6 +48,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'cucumber-rails', :require => false, group: :test
   gem 'selenium-webdriver'
+  gem 'capybara-webkit'
   gem 'database_cleaner'
   gem 'webmock', :require => false, group: :test
 end
