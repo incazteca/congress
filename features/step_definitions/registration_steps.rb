@@ -1,15 +1,26 @@
 When(/^User inputs correct information into registration form$/) do
-    pending # express the regexp above with the code you wish you had
+  fill_in 'reg_email', with: 'freyes@enova.com'
+  fill_in 'reg_fname', with: 'Franco'
+  fill_in 'reg_lname', with: 'Reyes'
+  fill_in 'reg_password', with: 'password'
+  fill_in 'reg_confirm', with: 'password'
+  click 'Register'
 end
 
 Then(/^User should be notified of succesful registration and logged in$/) do
-    pending # express the regexp above with the code you wish you had
+  expect(page).to have_content('Registration Successful')
+  expect(page).to have_content('Welcome Franco')
 end
 
 When(/^User inputs invalid information into registration form$/) do
-    pending # express the regexp above with the code you wish you had
+  fill_in 'reg_email', with: 'freyes@enova.com'
+  fill_in 'reg_fname', with: 'Franco'
+  fill_in 'reg_lname', with: 'Reyes'
+  fill_in 'reg_password', with: 'password'
+  fill_in 'reg_confirm', with: 'paword'
+  click 'Register'
 end
 
 Then(/^User should be notified of invalid registration$/) do
-    pending # express the regexp above with the code you wish you had
+  expect(page).to have_content('Registration Unsuccessful')
 end

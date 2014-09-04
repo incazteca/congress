@@ -1,20 +1,22 @@
 When(/^User inputs correct credentials$/) do
-    pending # express the regexp above with the code you wish you had
+  fill_in 'email', with: 'freyes@enova.com'
+  fill_in 'password', with: 'password'
+  click 'Login'
 end
 
 Then(/^User should be logged in$/) do
-    pending # express the regexp above with the code you wish you had
+  expect(page).to have_content('Welcome Franco')
 end
 
 When(/^User inputs incorrect password$/) do
-    pending # express the regexp above with the code you wish you had
-end
-
-Then(/^User should be notified of invalid login$/) do
-    pending # express the regexp above with the code you wish you had
+  fill_in 'email', with: 'freyes@enova.com'
+  fill_in 'password', with: 'wrongpassword'
+  click 'Login'
 end
 
 When(/^User inputs incorrect email$/) do
-    pending # express the regexp above with the code you wish you had
+  fill_in 'email', with: 'notright@enova.com'
+  fill_in 'password', with: 'password'
+  click 'Login'
 end
 

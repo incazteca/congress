@@ -1,39 +1,45 @@
 When(/^User searches by bill id$/) do
-    pending # express the regexp above with the code you wish you had
+  fill_in 'search_term', with: 'hr3461-111'
+  click 'Search'
 end
 
 Then(/^User should be taken to page for that bill$/) do
-    pending # express the regexp above with the code you wish you had
+  expect(page).to have_content('hr3461-111')
 end
 
 When(/^User searches by bioguide id$/) do
-    pending # express the regexp above with the code you wish you had
+  fill_in 'search_term', with: 'B000574'
+  click 'Search'
 end
 
 Then(/^User should be taken to page for that legislator$/) do
-    pending # express the regexp above with the code you wish you had
+  expect(page).to have_content('B000574')
 end
 
 When(/^User searches by title$/) do
-    pending # express the regexp above with the code you wish you had
+  fill_in 'search_term', with: 'highway'
+  click 'Search'
 end
 
 Then(/^User should be taken to result page with relevant bills$/) do
-    pending # express the regexp above with the code you wish you had
+  expect(page).to have_content('Results')
 end
 
 When(/^User searches with unsearchable string$/) do
-    pending # express the regexp above with the code you wish you had
+  fill_in 'search_term', with: 'plaintains'
+  click 'Search'
 end
 
 Then(/^User should be taken to result page with no results message$/) do
-    pending # express the regexp above with the code you wish you had
+  expect(page).to have_content('No results found for plaintains. Please try another search')
 end
 
 When(/^User searches without filling search field$/) do
-    pending # express the regexp above with the code you wish you had
+  fill_in 'search_term', with: ''
+  click 'Search'
 end
 
 Then(/^User should be taken to result page with default results$/) do
-    pending # express the regexp above with the code you wish you had
+  expect(page).to have_content('Results')
 end
+
