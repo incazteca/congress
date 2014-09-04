@@ -6,61 +6,43 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 #
-def create_legislators(legislators = [])
-  params = {}
+def create_legislators(legislators)
 
   legislators.each do |legislator|
-    Legislator.column_names.each do |column|
+    params = legislator.select { |k, _| Legislator.column_names.include? k.to_s }
 
-      if column == 'leadership_role_id' && legislator[:leadership_role] != nil
-        LeadershipRole.find_or_create_by!(leadership_role: legislator[:leadership_role])
-        params['leadership_role'] = legislator[:leadership_role]
-      elsif column == 'party_id' && legislator[:party] != nil
-        Party.find_or_create_by!(party: legislator[:party])
-        params['party'] = legislator[:party]
-      elsif column == 'chamber_id' && legislator[:chamber] != nil
-        Chamber.find_or_create_by!(chamber: legislator[:chamber])
-        params['chamber'] = legislator[:chamber]
-      else
-        params[column] = legislator["#{column}".to_sym]
-      end
-    end
+    params[:leadership_role] = LeadershipRole.find_or_create_by!(leadership_role: legislator[:leadership_role])
+      .leadership_role unless legislator[:leadership_role].nil?
+
+    params[:party] = Party.find_or_create_by!(party: legislator[:party]).party
+    params[:chamber] = Chamber.find_or_create_by!(chamber: legislator[:chamber]).chamber
 
     Legislator.create(params)
   end
 end
 
-def create_bills(bills = [])
+def create_bills(bills)
   params = {}
   bills.each do |bill|
+    params = bill.select { |k, _| Bill.column_names.include? k.to_s }
 
-    Bill.column_names.each do |column|
+    params[:history_active] = bill[:history][:active]
+    params[:history_awaiting_signature] = bill[:history][:awaiting_signature]
+    params[:history_enacted] = bill[:history][:enacted]
+    params[:history_vetoed] = bill[:history][:vetoed]
 
-      if /^history_.*/ =~ column
-        history_cols = column.split('_', 2).map(&:to_sym)
-        params[column] = bill[history_cols[0]][history_cols[1]]
-      elsif column == 'chamber_id' && bill[:chamber] != nil
-        Chamber.find_or_create_by!(chamber: bill[:chamber])
-        params['chamber'] = bill[:chamber]
-      elsif column == 'legislators_id'
-        legislator =  Legislator.find_by(bioguide_id: bill[:sponsor_id])
+    params[:chamber] = Chamber.find_or_create_by!(chamber: bill[:chamber]).chamber
 
-        params['legislators_id'] = legislator.id if legislator != nil
-
-        if legislator == nil
-          #logger.warn "Legislator id #{bill[:sponsor_id]} not found in DB"
-          puts "Legislator id #{bill[:sponsor_id]} not found in DB"
-        end
-      else
-        params[column] = bill["#{column}".to_sym]
-      end
-    end
+    legislator = Legislator.find_by(bioguide_id: bill[:sponsor_id])
+    params[:legislators_id] = legislator.id unless legislator.nil?
+    puts "Legislator id: #{bill[:sponsor_id]} not found in DB" if legislator.nil?
 
     Bill.create(params)
 
     create_title(bill[:official_title], 'official', bill[:bill_id])
-    create_title(bill[:popular_title], 'popular', bill[:bill_id]) if bill[:popular_title] != nil
-    create_title(bill[:short_title], 'short', bill[:bill_id]) if bill[:short_title] != nil
+    create_title(bill[:popular_title], 'popular', bill[:bill_id]) unless bill[:popular_title].nil?
+    create_title(bill[:short_title], 'short', bill[:bill_id]) unless bill[:short_title].nil?
+
   end
 end
 
@@ -73,7 +55,6 @@ end
 
 base_url = 'https://congress.api.sunlightfoundation.com'
 api_key = '300952facb214f5983867ed073e7e4ba'
-
 api_reader = CongressAPIReader.new(base_url, api_key)
 
 max_per_page = 50
