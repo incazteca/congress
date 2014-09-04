@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140902155557) do
+ActiveRecord::Schema.define(version: 20140904185542) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,8 +31,8 @@ ActiveRecord::Schema.define(version: 20140902155557) do
     t.string   "sponsor_id"
     t.integer  "cosponsors_count"
     t.string   "withdrawn_cosponsors_count"
-    t.integer  "legislators_id"
     t.integer  "chamber_id"
+    t.integer  "legislator_id"
   end
 
   add_index "bills", ["bill_id"], name: "index_bills_on_bill_id", unique: true, using: :btree
@@ -88,8 +88,8 @@ ActiveRecord::Schema.define(version: 20140902155557) do
   add_index "tag_types", ["tag_type"], name: "tag_types__u_tag_type", unique: true, using: :btree
 
   create_table "tags", force: true do |t|
-    t.integer "users_id"
     t.integer "tag_type_id"
+    t.integer "user_id"
   end
 
   create_table "title_types", primary_key: "title_type_id", force: true do |t|
@@ -99,9 +99,9 @@ ActiveRecord::Schema.define(version: 20140902155557) do
   add_index "title_types", ["title_type"], name: "title_types__u_title_type", unique: true, using: :btree
 
   create_table "titles", force: true do |t|
-    t.integer "bills_id"
     t.text    "title"
     t.integer "title_type_id"
+    t.integer "bill_id"
   end
 
   create_table "users", force: true do |t|

@@ -34,7 +34,7 @@ def create_bills(bills)
     params[:chamber] = Chamber.find_or_create_by!(chamber: bill[:chamber]).chamber
 
     legislator = Legislator.find_by(bioguide_id: bill[:sponsor_id])
-    params[:legislators_id] = legislator.id unless legislator.nil?
+    params[:legislator_id] = legislator.id unless legislator.nil?
     puts "Legislator id: #{bill[:sponsor_id]} not found in DB" if legislator.nil?
 
     Bill.create(params)
@@ -47,10 +47,10 @@ def create_bills(bills)
 end
 
 def create_title(title, type, bill_id)
-  bill_id = Bill.find_by(bill_id: bill_id).id
+  bill = Bill.find_by(bill_id: bill_id)
 
   TitleType.find_or_create_by!(title_type: type)
-  Title.create(bills_id: bill_id, title: title, title_type: type)
+  bill.titles.create(title: title, title_type: type)
 end
 
 base_url = 'https://congress.api.sunlightfoundation.com'
