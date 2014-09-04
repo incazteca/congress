@@ -1,5 +1,6 @@
 class BillsController < ApplicationController
   layout 'application'
+  #layout 'navbar'
 
   def index
     @bill = Bill.find_by(bill_id: params[:bill_id]) unless params[:bill_id].nil?
