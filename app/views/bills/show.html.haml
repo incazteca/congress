@@ -11,10 +11,10 @@
 - @bills.each do |bill|
   .row
     .col-sm-1
-      %p #{bill.bill_id}
+      =link_to "#{bill.bill_id}", "bills/#{bill.bill_id}"
     .col-sm-3
-      #{bill.short_title}
+      =link_to "#{bill.short_title}", "bills/#{bill.bill_id}"
     .col-sm-2
       %p #{bill.introduced_on}
     .col-sm-3
-      = link_to "#{bill.legislator.first_name} #{bill.legislator.last_name}", "legislators/#{bill.legislator.bioguide_id}" unless bill.legislator.nil?
+      = link_to "#{bill.legislator.first_name} #{bill.legislator.last_name}", "/legislators/#{bill.legislator.bioguide_id}" unless bill.legislator.nil?

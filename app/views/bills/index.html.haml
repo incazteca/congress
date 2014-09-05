@@ -8,7 +8,7 @@
 %p #{@bill.official_title}
 
 %h4 SPONSOR
-%p #{@bill.legislator.first_name} #{@bill.legislator.middle_name} #{@bill.legislator.last_name}
+= link_to "#{@bill.legislator.first_name} #{@bill.legislator.middle_name} #{@bill.legislator.last_name}", "/legislators/#{@bill.legislator.bioguide_id}" unless @bill.legislator.nil?
 
 - @bill.attributes.sort.each do |k, v|
   %h4 #{k.upcase}
