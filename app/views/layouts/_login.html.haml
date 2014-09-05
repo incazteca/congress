@@ -1,0 +1,10 @@
+.pull-right
+  %form.form-inline{:role => "form"}
+    .form-group
+      .input-group
+        .input-group-addon @
+        %input.form-control{:placeholder => "Enter email", :type => "email"}/
+    .form-group
+      %label.sr-only{:for => "exampleInputPassword2"} Password
+      %input#exampleInputPassword2.form-control{:placeholder => "Password", :type => "password"}/
+    %button.btn.btn-default{:type => "submit"} Sign in

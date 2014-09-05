@@ -15,5 +15,9 @@
             src='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js')
 
     .container
-      = render :partial => 'layouts/navbar.html'
-      = yield
+      .row
+        = render :partial => 'layouts/login'
+      .row
+        = render :partial => 'layouts/navbar'
+      .row
+        = yield

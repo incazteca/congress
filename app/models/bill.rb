@@ -18,7 +18,8 @@ class Bill < ActiveRecord::Base
       t.title_type_id == TitleType.find_by(title_type: type).id
     end
 
-    short_title.first.title
+    return short_title.first.title unless short_title.first.nil?
+    return "Short title not available" if short_title.first.nil?
   end
 
   def popular_title
@@ -27,6 +28,7 @@ class Bill < ActiveRecord::Base
       t.title_type_id == TitleType.find_by(title_type: type).id
     end
 
-    popular_title.first.title
+    return popular_title.first.title unless popular_title.first.nil?
+    return "Popular title not available" if popular_title.first.nil?
   end
 end

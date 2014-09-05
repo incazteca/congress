@@ -1,0 +1,16 @@
+%h1 #{@bill.bill_id}
+
+%h3 #{@bill.short_title}
+
+%h4 Official Title
+#{@bill.official_title}
+
+%h4 Sponsor
+#{@bill.legislator.first_name} #{@bill.legislator.middle_name} #{@bill.legislator.last_name}
+
+%h4 Congress
+#{@bill.congress}
+
+%h4 Chamber
+#{@bill.chamber}
+
