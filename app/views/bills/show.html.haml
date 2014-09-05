@@ -1,2 +1,20 @@
+.row
+  .col-sm-1
+    %p Bill ID
+  .col-sm-3
+    %p Short Title
+  .col-sm-2
+    %p Introduced on
+  .col-sm-2
+    %p Sponsor
+
 - @bills.each do |bill|
-  %p #{bill.bill_id}: #{bill.short_title}
+  .row
+    .col-sm-1
+      %p #{bill.bill_id}
+    .col-sm-3
+      #{bill.short_title}
+    .col-sm-2
+      %p #{bill.introduced_on}
+    .col-sm-3
+      = link_to "#{bill.legislator.first_name} #{bill.legislator.last_name}", "legislators/#{bill.legislator.bioguide_id}" unless bill.legislator.nil?

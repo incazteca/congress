@@ -2,15 +2,14 @@
 
 %h3 #{@bill.short_title}
 
-%h4 Official Title
-#{@bill.official_title}
+%br
 
-%h4 Sponsor
-#{@bill.legislator.first_name} #{@bill.legislator.middle_name} #{@bill.legislator.last_name}
+%h4 OFFICIAL TITLE
+%p #{@bill.official_title}
 
-%h4 Congress
-#{@bill.congress}
+%h4 SPONSOR
+%p #{@bill.legislator.first_name} #{@bill.legislator.middle_name} #{@bill.legislator.last_name}
 
-%h4 Chamber
-#{@bill.chamber}
-
+- @bill.attributes.sort.each do |k, v|
+  %h4 #{k.upcase}
+  %p #{v}
