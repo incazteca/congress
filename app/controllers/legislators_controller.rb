@@ -11,5 +11,6 @@ class LegislatorsController < ApplicationController
 
   def profile
     @legislator = Legislator.find_by(bioguide_id: params[:bioguide_id]) unless params[:bioguide_id].nil?
+    @bills = @legislator.bills.all.sort_by(&:introduced_on)
   end
 end
