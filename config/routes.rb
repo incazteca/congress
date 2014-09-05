@@ -17,6 +17,9 @@ Rails.application.routes.draw do
   get 'legislators/' => 'legislators#show'
   get 'legislators/:bioguide_id' => 'legislators#profile'
 
+  get 'search/' => 'search#index'
+  get 'search/:search_term' => 'search#index'
+
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 

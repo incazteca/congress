@@ -17,7 +17,7 @@
           %a{:href => "/legislators"} Legislators
         %li
           %a{:href => "/results"} Results
-      %form.navbar-form.navbar-right{:role => "search"}
+      %form.navbar-form.navbar-right{:role => "search", :action => "/search"}
         .form-group
-          %input.form-control{:placeholder => "Search", :type => "text"}/
-        %button.btn.btn-default{:type => "submit"} Submit
+          %input.form-control{:placeholder => "'hr5025-113' 'Durbin'", :type => "text", :name => "search_term" }/
+        %button.btn.btn-default{:type => "submit"} Search
