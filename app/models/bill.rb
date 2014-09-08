@@ -3,6 +3,8 @@ class Bill < ActiveRecord::Base
   lookup_for :chamber
   has_many :titles
 
+  delegate :name, to: :legislator, prefix: true
+
   def official_title
     type = 'official'
     official_title = titles.select do |t|
