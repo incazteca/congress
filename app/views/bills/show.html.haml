@@ -1,20 +1,45 @@
-.row
-  .col-sm-1
-    %p Bill ID
-  .col-sm-3
-    %p Short Title
-  .col-sm-2
-    %p Introduced on
-  .col-sm-2
-    %p Sponsor
+%h1 #{@bill.bill_id}
 
-- @bills.each do |bill|
-  .row
-    .col-sm-1
-      =link_to "#{bill.bill_id}", "bills/#{bill.bill_id}"
-    .col-sm-3
-      =link_to "#{bill.short_title}", "bills/#{bill.bill_id}"
-    .col-sm-2
-      %p #{bill.introduced_on}
-    .col-sm-3
-      = link_to "#{bill.legislator.first_name} #{bill.legislator.last_name}", "/legislators/#{bill.legislator.bioguide_id}" unless bill.legislator.nil?
+%h3 #{@bill.short_title}
+
+%br
+
+%h4 OFFICIAL TITLE
+%p #{@bill.official_title}
+
+%h4= "SPONSOR" unless @bill.legislator.blank?
+= link_to "#{@bill.legislator_name}", @bill.legislator unless @bill.legislator.nil?
+
+%h4 CHAMBER
+%p #{@bill.chamber}
+
+%h4 CONGRESS
+%p #{@bill.congress}
+
+%h4 INTRODUCED ON
+%p #{@bill.introduced_on}
+
+%h4 LAST ACTION AT
+%p #{@bill.last_action_at}
+
+%h4 LAST VOTE AT
+%p #{@bill.last_vote_at}
+
+%h4 ACTIVE
+%p #{@bill.history_active}
+
+%h4 AWAITING SIGNATURE
+%p #{@bill.history_awaiting_signature}
+
+%h4 ENACTED
+%p #{@bill.history_enacted}
+
+%h4 VETOED
+%p #{@bill.history_vetoed}
+
+%h4 COSPONSORS COUNT
+%p #{@bill.cosponsors_count}
+
+%h4 WITHDRAWN COSPONSORS COUNT
+%p #{@bill.withdrawn_cosponsors_count}
+

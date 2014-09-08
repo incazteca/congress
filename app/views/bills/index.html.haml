@@ -1,15 +1,20 @@
-%h1 #{@bill.bill_id}
+.row
+  .col-sm-1
+    %p Bill ID
+  .col-sm-3
+    %p Short Title
+  .col-sm-2
+    %p Introduced on
+  .col-sm-2
+    %p Sponsor
 
-%h3 #{@bill.short_title}
-
-%br
-
-%h4 OFFICIAL TITLE
-%p #{@bill.official_title}
-
-%h4 SPONSOR
-= link_to "#{@bill.legislator.first_name} #{@bill.legislator.middle_name} #{@bill.legislator.last_name}", "/legislators/#{@bill.legislator.bioguide_id}" unless @bill.legislator.nil?
-
-- @bill.attributes.sort.each do |k, v|
-  %h4 #{k.upcase}
-  %p #{v}
+- @bills.each do |bill|
+  .row
+    .col-sm-1
+      =link_to "#{bill.bill_id}", bill
+    .col-sm-3
+      =link_to "#{bill.short_title}", bill
+    .col-sm-2
+      %p #{bill.introduced_on}
+    .col-sm-3
+      = link_to "#{bill.legislator.first_name} #{bill.legislator.last_name}", bill.legislator unless bill.legislator.nil?

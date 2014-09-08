@@ -1,20 +1,40 @@
-.row
-  .col-sm-1
-    %p Party
-  .col-sm-3
-    %p Name
-  .col-sm-2
-    %p Chamber
-  .col-sm-2
-    %p State
+%h1 #{@legislator.title} #{@legislator.name} #{@legislator.name_suffix}
+%h2= "\"#{@legislator.nickname}\"" unless @legislator.nickname.blank?
+%br
 
-- @legislators.each do |legislator|
-  .row
-    .col-sm-1
-      %p #{legislator.party}
-    .col-sm-3
-      = link_to "#{legislator.first_name} #{legislator.last_name}", "legislators/#{legislator.bioguide_id}"
-    .col-sm-2
-      #{legislator.chamber}
-    .col-sm-2
-      #{legislator.state}
+%h4 STATE
+%p #{@legislator.state}
+
+%h4= "LEADERSHIP ROLE" unless @legislator.leadership_role.blank?
+%p= "#{@legislator.leadership_role}" unless @legislator.leadership_role.blank?
+
+%h4 CHAMBER
+%p #{@legislator.chamber}
+
+%h4= "DISTRICT" unless @legislator.district.blank?
+%p= "#{@legislator.district}" unless @legislator.district.blank?
+
+%h4 TERM START
+%p #{@legislator.term_start}
+
+%h4 TERM END
+%p #{@legislator.term_end}
+
+%h4 PARTY
+%p #{@legislator.party}
+
+%h4 BIRTHDAY
+%p #{@legislator.birthday}
+
+%h4 CONTACT FORM
+= link_to "#{@legislator.contact_form}", "#{@legislator.contact_form}"
+
+%h4 OFFICE
+%p #{@legislator.office}
+
+%h4 WEBSITE
+= link_to "#{@legislator.website}", "#{@legislator.website}"
+
+%h3 Bills Sponsored
+
+= render file: 'bills/index'

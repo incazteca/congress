@@ -2,12 +2,11 @@ class BillsController < ApplicationController
   layout 'application'
 
   def index
-    @bill = Bill.find_by(bill_id: params[:bill_id]) unless params[:bill_id].nil?
-    @bill = Bill.first if params[:bill_id].nil?
+    @bills = Bill.all.sort_by(&:introduced_on)
   end
 
   def show
-    @bills = Bill.all.sort_by(&:introduced_on)
+    @bill = Bill.find(params[:id])
   end
 
 end

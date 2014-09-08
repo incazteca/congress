@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -7,14 +8,11 @@ Rails.application.routes.draw do
   #
   root 'bills#index'
 
+  resources :bills
+  resources :legislators
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
-
-  get 'bills/' => 'bills#show'
-  get 'bills/:bill_id' => 'bills#index'
-
-  get 'legislators/' => 'legislators#show'
-  get 'legislators/:bioguide_id' => 'legislators#profile'
 
   get 'search/' => 'search#index'
   get 'search/:search_term' => 'search#index'
