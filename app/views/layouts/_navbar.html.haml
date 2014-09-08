@@ -11,12 +11,10 @@
     / Collect the nav links, forms, and other content for toggling
     #bs-example-navbar-collapse-1.collapse.navbar-collapse
       %ul.nav.navbar-nav
-        %li.active
-          %a{:href => "/bills"} Bills
-        %li
-          %a{:href => "/legislators"} Legislators
-        %li
-          %a{:href => "/results"} Results
+        %li{class: (current_page?(bills_path) && 'active') || (current_page?(root_path) && 'active')}
+          = link_to "Bills", bills_path
+        %li{class: current_page?(legislators_path) && 'active'}
+          = link_to "Legislators", legislators_path
       %form.navbar-form.navbar-right{:role => "search", :action => "/search"}
         .form-group
           %input.form-control{:placeholder => "'hr5025-113' 'Durbin'", :type => "text", :name => "search_term" }/
