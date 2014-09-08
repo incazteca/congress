@@ -8,6 +8,9 @@
 %h4= "LEADERSHIP ROLE" unless @legislator.leadership_role.blank?
 %p= "#{@legislator.leadership_role}" unless @legislator.leadership_role.blank?
 
+%h4 BIOGUIDE ID
+%p #{@legislator.bioguide_id}
+
 %h4 CHAMBER
 %p #{@legislator.chamber}
 
@@ -37,4 +40,4 @@
 
 %h3 Bills Sponsored
 
-= render file: 'bills/index'
+= render partial: 'shared/bills'
