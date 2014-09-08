@@ -1,0 +1,20 @@
+class SearchController < ApplicationController
+  def index
+
+    search_term = params[:search_term].strip
+
+    # Redirect to bill if search seems like a bill id
+    redirect_to bill_path(Bill.find_by(bill_id: search_term.downcase)) and return if /(s|hr)\d{1,4}-\d{1,3}/ =~ search_term.downcase
+
+    # Redirect to legislators if search seems like a bioguide_id
+    redirect_to legislator_path(Legislator.find_by(bioguide_id: search_term.upcase)) and return if /[A-Z]\d{6}/ =~ search_term.upcase
+
+    @legislators = Legislator.where('last_name = ?', search_term)
+    @titles = Title.where('title LIKE ?', "%#{search_term}%")
+    @bills = Bill.find(@titles) unless @title.nil?
+
+    redirect_to legislator_path(@legislators.first) and return if @legislators.count == 1
+    redirect_to bill_path(@bills.first) and return if @bills.count == 1
+
+  end
+end
