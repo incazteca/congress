@@ -2,7 +2,7 @@ class BillsController < ApplicationController
   layout 'application'
 
   def index
-    @bills = Bill.all.sort_by(&:introduced_on)
+    @bills = Bill.all.order("introduced_on desc")
   end
 
   def show
