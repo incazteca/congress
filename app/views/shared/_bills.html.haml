@@ -18,3 +18,4 @@
       %p #{bill.introduced_on}
     .col-sm-3
       = link_to "#{bill.legislator.first_name} #{bill.legislator.last_name}", bill.legislator unless bill.legislator.nil?
+= will_paginate @bills

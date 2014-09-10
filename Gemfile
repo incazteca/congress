@@ -43,6 +43,7 @@ gem 'pry'
 gem 'haml-rails'
 gem 'lookup_by'
 gem 'bcrypt-ruby'
+gem 'will_paginate'
 
 group :development, :test do
   gem 'factory_girl_rails'

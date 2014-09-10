@@ -1,0 +1,25 @@
+.row
+  .col-sm-1
+    %p Party
+  .col-sm-3
+    %p Name
+  .col-sm-2
+    %p Chamber
+  .col-sm-2
+    %p State
+  .col-sm-2
+    %p Bills Sponsored
+
+- @legislators.each do |legislator|
+  .row
+    .col-sm-1
+      %p #{legislator.party}
+    .col-sm-3
+      = link_to "#{legislator.first_name} #{legislator.last_name}", legislator
+    .col-sm-2
+      #{legislator.chamber}
+    .col-sm-2
+      #{legislator.state}
+    .col-sm-2
+      #{legislator.bills.count}
+= will_paginate @legislators
