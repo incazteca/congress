@@ -7,6 +7,8 @@
     %p Chamber
   .col-sm-2
     %p State
+  .col-sm-2
+    %p Bills Sponsored
 
 - @legislators.each do |legislator|
   .row
@@ -18,3 +20,5 @@
       #{legislator.chamber}
     .col-sm-2
       #{legislator.state}
+    .col-sm-2
+      #{legislator.bills.count}
