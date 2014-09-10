@@ -3,8 +3,8 @@
     .form-group
       .input-group
         .input-group-addon @
-        %input.form-control{:placeholder => "Enter email", :type => "email"}/
+        %input.form-control{:placeholder => "Enter email", :type => "email", :name => "email"}/
     .form-group
-      %label.sr-only{:for => "exampleInputPassword2"} Password
-      %input#exampleInputPassword2.form-control{:placeholder => "Password", :type => "password"}/
-    %button.btn.btn-default{:type => "submit"} Sign in
+      %label.sr-only{:for => "loginPassword"} Password
+      %input#loginPassword.form-control{:placeholder => "Password", :type => "password", :name => "password"}/
+    %button.btn.btn-default{:type => "submit"} Login
