@@ -42,6 +42,7 @@ gem 'foreman'
 gem 'pry'
 gem 'haml-rails'
 gem 'lookup_by'
+gem 'will_paginate'
 
 group :development, :test do
   gem 'factory_girl_rails'

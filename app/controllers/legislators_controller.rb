@@ -2,7 +2,7 @@ class LegislatorsController < ApplicationController
   layout 'application'
 
   def index
-    @legislators = Legislator.all.order("last_name, first_name")
+    @legislators = Legislator.all.order("last_name, first_name").paginate(:page => params[:page], :per_page => 20)
   end
 
   def show
