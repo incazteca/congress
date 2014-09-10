@@ -4,7 +4,7 @@ When(/^User inputs correct information into registration form$/) do
   fill_in 'reg_lname', with: 'Reyes'
   fill_in 'reg_password', with: 'password'
   fill_in 'reg_confirm', with: 'password'
-  click 'Register'
+  click_button 'Register'
 end
 
 Then(/^User should be notified of succesful registration and logged in$/) do
@@ -18,7 +18,7 @@ When(/^User inputs invalid information into registration form$/) do
   fill_in 'reg_lname', with: 'Reyes'
   fill_in 'reg_password', with: 'password'
   fill_in 'reg_confirm', with: 'paword'
-  click 'Register'
+  click_button 'Register'
 end
 
 Then(/^User should be notified of invalid registration$/) do
