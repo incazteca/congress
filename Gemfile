@@ -42,6 +42,7 @@ gem 'foreman'
 gem 'pry'
 gem 'haml-rails'
 gem 'lookup_by'
+gem 'bcrypt-ruby'
 
 group :development, :test do
   gem 'factory_girl_rails'
