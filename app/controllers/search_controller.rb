@@ -9,9 +9,11 @@ class SearchController < ApplicationController
     # Redirect to legislators if search seems like a bioguide_id, only time upcase needed
     redirect_to legislator_path(Legislator.find_by(bioguide_id: search_term.upcase)) and return if /[A-Z]\d{6}/ =~ search_term.upcase
 
-    @legislators = Legislator.where('lower(first_name) LIKE ? OR lower(last_name) LIKE ?', "%#{search_term}%", "%#{search_term}%")
-    @titles = Title.where('lower(title) LIKE ?', "%#{search_term}%")
-    @bills = Bill.find(@titles.map(&:bill_id)) unless @titles.nil?
+    @legislators = Legislator.
+      where('lower(first_name) LIKE ? OR lower(last_name) LIKE ?', "%#{search_term}%", "%#{search_term}%")
+
+    titles = Title.where('lower(title) LIKE ?', "%#{search_term}%")
+    @bills = Bill.find(titles.map(&:bill_id)) unless titles.nil?
 
     redirect_to legislator_path(@legislators.first) and return if @legislators.count == 1
     redirect_to bill_path(@bills.first) and return if @bills.count == 1

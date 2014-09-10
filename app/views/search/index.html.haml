@@ -1,5 +1,16 @@
-%h1 Bills
-= render partial: 'shared/bills'
+%h1 Results
 
-%h1 Legislators
-= render partial: 'shared/legislators'
+- if @bills.count == 0 && @legislators.count == 0
+  %p No results found for #{params[:search_term]}. Please try another search.
+- else
+  - if @bills.count > 0
+    %h2 Bills
+    = render partial: 'shared/bills'
+  - if @bills.count == 0
+    %p No bills have been found
+
+  - if @legislators.count > 0
+    %h2 Legislators
+    = render partial: 'shared/legislators'
+  - if @legislators.count == 0
+    %p No legislators have been found
