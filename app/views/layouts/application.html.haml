@@ -17,6 +17,8 @@
     .container
       .row
         = render :partial => 'layouts/login'
+        %p.notice= notice
+        %p.alert= alert
       .row
         = render :partial => 'layouts/navbar'
       .row
