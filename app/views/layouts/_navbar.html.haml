@@ -16,10 +16,19 @@
         %li{class: current_page?(legislators_path) && 'active'}
           = link_to "Legislators", legislators_path
       %ul.nav.navbar-nav.navbar-right
-        %li{class: current_page?(new_user_session_path) && 'active'}
-          = link_to "Log In", new_user_session_path
-        %li{class: current_page?(new_user_registration_path) && 'active'}
-          = link_to "Register", new_user_registration_path
+        - if user_signed_in?
+          %li.dropdown
+            %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+              #{current_user.first_name} #{current_user.last_name}
+              %span.caret
+            %ul.dropdown-menu{:role => "menu"}
+              %li
+                = link_to "Logout", destroy_user_session_path, :method => :delete
+        -else
+          %li{class: current_page?(new_user_session_path) && 'active'}
+            = link_to "Log In", new_user_session_path
+          %li{class: current_page?(new_user_registration_path) && 'active'}
+            = link_to "Register", new_user_registration_path
       %form.navbar-form.navbar-right{:role => "search", :action => "/search"}
         .form-group
           %input.form-control{:placeholder => "Search Here", :type => "text", :name => "search_term" }
