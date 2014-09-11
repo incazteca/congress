@@ -45,6 +45,7 @@ gem 'lookup_by'
 gem 'bcrypt-ruby'
 gem 'will_paginate'
 gem 'devise', '~> 3.2'
+gem 'bootstrap_form'
 
 group :development, :test do
   gem 'factory_girl_rails'
