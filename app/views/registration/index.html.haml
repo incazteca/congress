@@ -1,0 +1,18 @@
+%form{:role => "form", :action => '/registration'}
+  %p Sign up so that you could be emailed updates on things you tag.
+  .form-group
+    %label{:for => "registrationEmail"} Email address
+    %input#registrationEmail.form-control{:placeholder => "Enter email", :type => "email", :name => "reg_email"}/
+  .form-group
+    %label{:for => "registrationFirstName"} First Name
+    %input#registrationFirstName.form-control{:placeholder => "First Name", :type => "text", :name => "reg_fname"}/
+  .form-group
+    %label{:for => "registrationLastName"} Last Name
+    %input#registrationLastName.form-control{:placeholder => "Last Name", :type => "text", :name => "reg_lname"}/
+  .form-group
+    %label{:for => "registrationPassword"} Password
+    %input#registrationPassword.form-control{:placeholder => "Password", :type => "password", :name => "reg_password"}/
+  .form-group
+    %label{:for => "registrationConfirmPassword"} Confirm Password
+    %input#registrationConfirmPassword.form-control{:placeholder => "Confirm Password", :type => "password", :name => "reg_confirm"}/
+  %button.btn.btn-default{:type => "submit"} Submit
