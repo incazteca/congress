@@ -25,7 +25,7 @@ class SearchController < ApplicationController
   end
 
   def bill_search(term)
-    redirect_to bill_path(Bill.find_by(bill_id: term)) and return if bill_id?(term)
+    return [Bill.find_by(bill_id: term)] if bill_id?(term)
 
     titles = Title.where('lower(title) LIKE ?', "%#{term}%")
 
@@ -35,8 +35,7 @@ class SearchController < ApplicationController
   end
 
   def legislator_search(term)
-    redirect_to legislator_path(
-      Legislator.find_by(bioguide_id: term.upcase)) and return if bioguide_id?(term)
+    return [Legislator.find_by(bioguide_id: term.upcase)] if bioguide_id?(term)
 
     Legislator.
       where('lower(first_name || \' \' || last_name) LIKE ? OR
