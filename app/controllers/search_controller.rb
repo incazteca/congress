@@ -1,25 +1,49 @@
 require 'will_paginate'
+require 'will_paginate/array'
 
 class SearchController < ApplicationController
   def index
-
     search_term = params[:search_term].strip.downcase
 
-    # Redirect to bill if search seems like a bill id
-    redirect_to bill_path(Bill.find_by(bill_id: search_term)) and return if /(s|hr)\d{1,4}-\d{1,3}/ =~ search_term
+    @bills = bill_search(search_term)
+    @legislators = legislator_search(search_term)
 
-    # Redirect to legislators if search seems like a bioguide_id, only time upcase needed
-    redirect_to legislator_path(Legislator.find_by(bioguide_id: search_term.upcase)) and return if /[A-Z]\d{6}/ =~ search_term.upcase
+    unless @bills.count > 0 && @legislators.count > 0
+      redirect_to legislator_path(@legislators.first) and return if @legislators.count == 1
+      redirect_to bill_path(@bills.first) and return if @bills.count == 1
+    end
+  end
 
-    @legislators = Legislator.
-      where('lower(first_name) LIKE ? OR lower(last_name) LIKE ?', "%#{search_term}%", "%#{search_term}%").
-      paginate(page: params[:page], per_page: 15)
+  private
 
-    titles = Title.where('lower(title) LIKE ?', "%#{search_term}%")
-    @bills = Bill.paginate(page: params[:page], per_page: 15).find(titles.map(&:bill_id)) unless titles.nil?
+  def bill_id?(term)
+    /(s|hr)\d{1,4}-\d{1,3}/ =~ term
+  end
 
-    redirect_to legislator_path(@legislators.first) and return if @legislators.count == 1
-    redirect_to bill_path(@bills.first) and return if @bills.count == 1
+  def bioguide_id?(term)
+    /[a-z]\d{6}/ =~ term
+  end
+
+  def bill_search(term)
+    redirect_to bill_path(Bill.find_by(bill_id: term)) and return if bill_id?(term)
+
+    titles = Title.where('lower(title) LIKE ?', "%#{term}%")
+
+    Bill.find(titles.map(&:bill_id)).
+      paginate(page: params[:page], per_page: 15) unless titles.nil?
 
   end
+
+  def legislator_search(term)
+    redirect_to legislator_path(
+      Legislator.find_by(bioguide_id: term.upcase)) and return if bioguide_id?(term)
+
+    Legislator.
+      where('lower(first_name || \' \' || last_name) LIKE ? OR
+            lower(first_name || \' \' || middle_name || \' \' || last_name) LIKE ?',
+            "%#{term}%",
+            "%#{term}%").
+      paginate(page: params[:page], per_page: 15)
+  end
+
 end
