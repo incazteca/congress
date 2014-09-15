@@ -3,6 +3,6 @@ FactoryGirl.define do
     id 743
     bill_id 411
     title "Orphan Highway Restoration Act"
-    title_type_id 2
+    title_type_id 1
   end
 end
