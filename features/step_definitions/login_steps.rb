@@ -1,3 +1,7 @@
+Given(/^User is on login page$/) do
+  visit 'users/sign_in'
+end
+
 When(/^User inputs correct credentials$/) do
   fill_in 'email', with: 'freyes@enova.com'
   fill_in 'password', with: 'password'

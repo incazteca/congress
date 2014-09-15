@@ -1,3 +1,7 @@
+Given(/^User is on registrations page$/) do
+  visit 'users/sign_up'
+end
+
 When(/^User inputs correct information into registration form$/) do
   fill_in 'reg_email', with: 'freyes@enova.com'
   fill_in 'reg_fname', with: 'Franco'

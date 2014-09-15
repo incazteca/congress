@@ -1,3 +1,20 @@
+Given(/^User is on site with only one bill$/) do
+  create :bill
+  visit '/'
+end
+
+Given(/^User is on site with only one legislator$/) do
+  create :legislator
+  visit '/'
+end
+
+Given(/^User is on site with one legislator and one bill$/) do
+  create :bill
+  create :title
+  create :legislator
+  visit '/'
+end
+
 When(/^User searches by bill id$/) do
   fill_in 'search_term', with: 'hr3461-111'
   click_button 'Search'

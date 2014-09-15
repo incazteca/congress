@@ -4,18 +4,18 @@ Feature: Users log into Congress web application
 
     @javascript
     Scenario: User is logging in successfully
-        Given User is on site
+        Given User is on login page
         When User inputs correct credentials
         Then User should be logged in
 
     @javascript
     Scenario: User is logging in with wrong password
-        Given User is on site
+        Given User is on login page
         When User inputs incorrect password
         Then User should be notified of invalid login
 
     @javascript
     Scenario: User is logging in with invalid email
-        Given User is on site
+        Given User is on login page
         When User inputs incorrect email
         Then User should be notified of invalid login
