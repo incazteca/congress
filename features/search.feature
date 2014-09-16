@@ -15,7 +15,7 @@ Feature: Allow users to search by Bill id, legislator last name or bioguide_id, 
     Scenario: User searches for bill by title
         Given User is on site with only one bill
         When User searches by title
-        Then User should be taken to result page with relevant bills
+        Then User should be taken to page for that bill
 
     Scenario: User searches but no results
         Given User is on site
