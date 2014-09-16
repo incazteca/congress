@@ -10,7 +10,7 @@ Given(/^Non Active bill$/) do
   visit '/bills/1'
 end
 
-Given(/^Legislator$/) do
+Given(/^User is on Legislator page$/) do
   create :legislator
   visit '/legislators/1'
 end
