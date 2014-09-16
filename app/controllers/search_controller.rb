@@ -1,5 +1,4 @@
 require 'will_paginate'
-require 'will_paginate/array'
 
 class SearchController < ApplicationController
   def index
@@ -29,7 +28,7 @@ class SearchController < ApplicationController
 
     titles = Title.where('lower(title) LIKE ?', "%#{term}%")
 
-    Bill.find(titles.map(&:bill_id)).
+    Bill.where(id: titles.map(&:bill_id)).
       paginate(page: params[:page], per_page: 15) unless titles.nil?
 
   end
