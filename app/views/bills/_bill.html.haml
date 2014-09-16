@@ -1,0 +1,9 @@
+.row
+  .col-sm-1
+    =link_to "#{bill.bill_id}", bill
+  .col-sm-3
+    =link_to "#{bill.short_title}", bill
+  .col-sm-2
+    %p #{bill.introduced_on}
+  .col-sm-3
+    = link_to "#{bill.legislator.first_name} #{bill.legislator.last_name}", bill.legislator unless bill.legislator.nil?
