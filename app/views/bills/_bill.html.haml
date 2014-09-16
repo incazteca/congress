@@ -7,3 +7,6 @@
     %p #{bill.introduced_on}
   .col-sm-3
     = link_to "#{bill.legislator.first_name} #{bill.legislator.last_name}", bill.legislator unless bill.legislator.nil?
+  .col-sm-1
+    -if bill.history_active
+      = render partial: 'shared/tag'

@@ -1,8 +1,10 @@
 %h1 #{@bill.bill_id}
 
 %h3 #{@bill.short_title}
-
 %br
+
+- if @bill.history_active
+  = render partial: 'shared/tag'
 
 %h4 OFFICIAL TITLE
 %p #{@bill.official_title}

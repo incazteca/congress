@@ -2,6 +2,8 @@
 %h2= "\"#{@legislator.nickname}\"" unless @legislator.nickname.blank?
 %br
 
+= render partial: 'shared/tag'
+
 %h4 STATE
 %p #{@legislator.state}
 
