@@ -53,6 +53,11 @@ def create_title(title, type, bill_id)
   bill.titles.create(title: title, title_type: type)
 end
 
+def create_tag_types
+  TagType.find_or_create_by!(tag_type: 'bill')
+  TagType.find_or_create_by!(tag_type: 'legislator')
+end
+
 base_url = 'https://congress.api.sunlightfoundation.com'
 api_key = '300952facb214f5983867ed073e7e4ba'
 api_reader = CongressAPIReader.new(base_url, api_key)
@@ -84,3 +89,4 @@ loop do
   break if response.count_on_page < max_per_page
 end
 
+create_tag_types

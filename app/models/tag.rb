@@ -1,4 +1,4 @@
 class Tag < ActiveRecord::Base
   belongs_to :user
-  belongs_to :tag_type
+  lookup_for :tag_type
 end
