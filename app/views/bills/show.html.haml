@@ -4,7 +4,7 @@
 %br
 
 - if @bill.history_active
-  = render partial: 'shared/tag'
+  = render partial: 'shared/tag', locals: { type: 'bill', item_id: @bill.id, tagged: @bill.tagged?(current_user) }
 
 %h4 OFFICIAL TITLE
 %p #{@bill.official_title}

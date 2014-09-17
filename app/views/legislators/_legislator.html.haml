@@ -10,4 +10,4 @@
   .col-sm-2
     #{legislator.bills.count}
   .col-sm-2
-    = render partial: 'shared/tag'
+    = render partial: 'shared/tag', locals: { type: 'legislators', item_id: legislator.id, tagged: legislator.tagged?(current_user) }

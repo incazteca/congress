@@ -9,4 +9,4 @@
     = link_to "#{bill.legislator.first_name} #{bill.legislator.last_name}", bill.legislator unless bill.legislator.nil?
   .col-sm-1
     -if bill.history_active
-      = render partial: 'shared/tag'
+      = render partial: 'shared/tag', locals: { type: 'bill', item_id: bill.id, tagged: bill.tagged?(current_user) }
