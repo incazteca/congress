@@ -19,10 +19,10 @@
 %p #{@bill.congress}
 
 %h4 INTRODUCED ON
-%p #{@bill.introduced_on}
+%p #{@bill.introduced_on.strftime("%Y-%m-%d")}
 
 %h4 LAST ACTION AT
-%p #{@bill.last_action_at}
+%p #{@bill.last_action_at.strftime("%Y-%m-%d")}
 
 %h4 LAST VOTE AT
 %p #{@bill.last_vote_at}

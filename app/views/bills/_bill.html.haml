@@ -4,7 +4,7 @@
   .col-sm-3
     =link_to "#{bill.short_title}", bill
   .col-sm-2
-    %p #{bill.introduced_on}
+    %p #{bill.introduced_on.strftime("%Y-%m-%d")}
   .col-sm-3
     = link_to "#{bill.legislator.first_name} #{bill.legislator.last_name}", bill.legislator unless bill.legislator.nil?
   .col-sm-1
