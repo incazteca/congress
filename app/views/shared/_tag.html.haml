@@ -1,9 +1,7 @@
 -if user_signed_in?
-  -unless tagged
-    %form
-      %input(type= 'hidden' value = "#{item_id}" name = 'value')
-      %input(type= 'hidden' value = "#{type}" name = 'type')
-      %input(type= 'hidden' value = "#{current_user.id}" name = 'user_id')
-      %button.btn.btn-default{onclick: 'toggle_tag()'} Tag for Updates
+  -if tagged
+    %button.btn.btn-success{onclick: "untag_item(#{tag_id})",
+       class: "#{item_id}"} Tagged for Updates
   -else
-    %button.btn.btn-success{onclick: 'toggle_tag()'} Tagged for Updates
+    %button.btn.btn-default{onclick: "tag_item('#{item_id}',
+      '#{current_user.id}')", class: "#{item_id}"} Tag for Updates

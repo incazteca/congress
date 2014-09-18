@@ -3,8 +3,7 @@
 %h3 #{@bill.short_title}
 %br
 
-- if @bill.history_active
-  = render partial: 'shared/tag', locals: { type: 'bill', item_id: @bill.id, tagged: @bill.tagged?(current_user) }
+- if @bill.history_active = render partial: 'shared/tag', locals: { item_id: @bill.bill_id, tagged: @bill.tagged?(current_user), tag_id: @bill.tag_id(current_user) }
 
 %h4 OFFICIAL TITLE
 %p #{@bill.official_title}

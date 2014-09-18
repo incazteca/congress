@@ -2,7 +2,7 @@
 %h2= "\"#{@legislator.nickname}\"" unless @legislator.nickname.blank?
 %br
 
-= render partial: 'shared/tag', locals: { type: 'legislators', item_id: @legislator.id, tagged: @legislator.tagged?(current_user) }
+= render partial: 'shared/tag', locals: { item_id: @legislator.bioguide_id, tagged: @legislator.tagged?(current_user), tag_id: @legislator.tag_id(current_user) }
 
 %h4 STATE
 %p #{@legislator.state}

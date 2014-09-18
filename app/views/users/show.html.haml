@@ -2,6 +2,6 @@
   #{@user.first_name} #{@user.last_name}
 
 %h3 Bill Tags
-= render @bill_tags
+= render @bill_tags || "No Bills Tagged"
 %h3 Legislator Tags
-= render @legislator_tags
+= render @legislator_tags || "No Legislators Tagged"
