@@ -16,7 +16,7 @@ class SearchController < ApplicationController
   private
 
   def bill_id?(term)
-    /(s|hr)\d{1,4}-\d{1,3}/ =~ term
+    /(s|hr|hconres|sconres|hjres|sres)\d{1,4}-\d{1,3}/ =~ term
   end
 
   def bioguide_id?(term)
