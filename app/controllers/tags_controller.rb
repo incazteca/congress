@@ -21,7 +21,7 @@ class TagsController < ApplicationController
   private
 
   def bioguide_id?(term)
-    /[a-z]\d{6}/ =~ term
+    /[A-Z]\d{6}/ =~ term
   end
 
   def bill_id?(term)

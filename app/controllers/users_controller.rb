@@ -14,6 +14,7 @@ class UsersController < ApplicationController
 
     @bill_tags = Tag.where('user_id = ? AND tag_type_id = ?',
                            @user.id, TagType.find_by(tag_type: 'bill'))
+
     @legislator_tags = Tag.where('user_id = ? AND tag_type_id = ?',
                                  @user.id, TagType.find_by(tag_type: 'legislator'))
   end

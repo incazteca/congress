@@ -1,7 +1,7 @@
 .row
   .col-sm-8
-    -if tag.tag_type = 'bill'
+    -if tag.tag_type == 'bill'
       = link_to "#{Bill.find(tag.tagged_item_id).short_title}", bill_path(tag.tagged_item_id)
     -else
-      = link_to "#{Legislator.find(tag.tagged_item_id).first_name}", legislator_path(tag.tagged_item_id)
+      = link_to "#{Legislator.find(tag.tagged_item_id).name}", legislator_path(tag.tagged_item_id)
 

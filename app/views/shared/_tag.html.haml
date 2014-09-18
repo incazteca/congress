@@ -1,7 +1,7 @@
 -if user_signed_in?
   -if tagged
     %button.btn.btn-success{onclick: "toggle('#{item_id}',
-      '#{current_user.id}', #{tag_id})", class: "#{item_id}"} Tagged for Updates
+      '#{current_user.id}', '#{tag_id}')", class: "#{item_id}"} Tagged for Updates
   -else
     %button.btn.btn-default{onclick: "toggle('#{item_id}',
-      '#{current_user.id}', #{tag_id})", class: "#{item_id}"} Tag for Updates
+      '#{current_user.id}', '#{tag_id}')", class: "#{item_id}"} Tag for Updates
