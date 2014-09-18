@@ -1,5 +1,4 @@
 class TagsController < ApplicationController
-  protect_from_forgery with: :null_session
   before_action :authenticate_user!
 
   def create
@@ -10,13 +9,13 @@ class TagsController < ApplicationController
     tag_legislator if bioguide_id?(params[:item_id])
     tag_bill if bill_id?(params[:item_id])
 
-    render json: '"status":"success"'
+    render json: '{"status":"success"}'
   end
 
   def destroy
     Tag.find(params[:id]).destroy
 
-    render json: '"status":"success"'
+    render json: '{"status":"success"}'
   end
 
   private
