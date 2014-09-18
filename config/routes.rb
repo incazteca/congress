@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :bills
   resources :legislators
   resources :users
+  resources :tags
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
