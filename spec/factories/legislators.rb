@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :legislator do
-    id 469
+    id 1
     bioguide_id   "B000574"
     title "Rep"
     first_name "Earl"
