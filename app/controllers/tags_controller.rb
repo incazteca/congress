@@ -2,10 +2,6 @@ class TagsController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    # After lunch under if bioguide get leg id and set tag type
-    tag_type = "legislator" if bioguide_id?(params[:item_id])
-    tag_type = "bill" if tag_type.nil?
-
     tag_legislator if bioguide_id?(params[:item_id])
     tag_bill if bill_id?(params[:item_id])
 
@@ -29,7 +25,7 @@ class TagsController < ApplicationController
   end
 
   def tag_bill
-    tag_type = "bill"
+    tag_type = 'bill'
     bill = Bill.find_by(bill_id: params[:item_id])
 
     Tag.create(user_id: params[:user_id], tag_type: tag_type,
@@ -37,7 +33,7 @@ class TagsController < ApplicationController
   end
 
   def tag_legislator
-    tag_type = "legislator"
+    tag_type = 'legislator'
     legislator = Legislator.find_by(bioguide_id: params[:item_id])
 
     Tag.create(user_id: params[:user_id], tag_type: tag_type,
