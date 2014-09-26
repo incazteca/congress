@@ -18,6 +18,8 @@ require 'webmock/rspec'
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
 
+  config.include FactoryGirl::Syntax::Methods
+
   basic_response = '{
     "thank_you": "for using https",
     "status": 200,
