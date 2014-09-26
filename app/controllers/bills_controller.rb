@@ -10,7 +10,7 @@ class BillsController < ApplicationController
 
   def show
     @bill = Bill.find(params[:id])
-    @tags = Tag.find_by_user_id(current_user.id)
+    @tags = Tag.find_by_user_id(current_user.try(:id))
   end
 
 end

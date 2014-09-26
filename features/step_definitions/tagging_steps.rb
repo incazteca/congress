@@ -1,12 +1,20 @@
 # Givens
 
 Given(/^Active bill$/) do
-  create :active_bill
+  create :official_type
+  create :short_type
+  create :popular_type
+  create :title
+  create :bill, :active
   visit '/bills/1'
 end
 
 Given(/^Non Active bill$/) do
-  create :non_active_bill
+  create :official_type
+  create :short_type
+  create :popular_type
+  create :title
+  create :bill, :not_active
   visit '/bills/1'
 end
 
@@ -18,11 +26,11 @@ end
 # Whens
 
 When(/^User attempts to tag a bill$/) do
-  click_button 'Tag Bill'
+  click_button 'Tag for Updates'
 end
 
 When(/^User attempts to tag a legislator$/) do
-  click_button 'Tag Legislator'
+  click_button 'Tag for Updates'
 end
 
 # Thens
