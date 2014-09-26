@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe Bill, :type => :model do
+RSpec.describe Bill, type: :model do
   let (:bill) { Bill.find_by(bill_id: 'hr2642-113') }
 
-  it "has an official title" do
+  it 'has an official title' do
     create(:official_type)
     create(:short_type)
     create(:popular_type)
@@ -11,7 +11,7 @@ RSpec.describe Bill, :type => :model do
     expect(build(:bill).official_title).not_to be_nil
   end
 
-  it "has a short title" do
+  it 'has a short title' do
     create(:official_type)
     create(:short_type)
     create(:popular_type)
@@ -19,7 +19,7 @@ RSpec.describe Bill, :type => :model do
     expect(build(:bill).short_title).not_to be_nil
   end
 
-  it "has a popular title" do
+  it 'has a popular title' do
     create(:official_type)
     create(:short_type)
     create(:popular_type)
