@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
 
-    redirect_to :back, alert: 'Access Denied' unless @user == curent_user
+    redirect_to :back, alert: 'Access Denied' unless @user == current_user
 
     @bill_tags = Tag.where('user_id = ? AND tag_type_id = ?',
                            @user.id, TagType.find_by(tag_type: 'bill'))
