@@ -236,32 +236,39 @@ RSpec.configure do |config|
 
   config.before(:each) do
 
-    stub_request(:get, "https://congress.api.sunlightfoundation.com/").
-      with(:query => {'apikey' => api_key, 'per_page' => '50' }, :headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
-      to_return(:status => [200, 'OK'], :body => basic_response, :headers => {})
+    stub_request(:get, 'https://congress.api.sunlightfoundation.com/').
+      with(query: { apikey: api_key, per_page: '50' },
+        headers: { 'Accept'=>'*/*', 'User-Agent'=>'Ruby' }).
+      to_return(status: [200, 'OK'], body: basic_response, headers: {})
 
-    stub_request(:get, "https://congress.api.sunlightfoundation.com/bills").
-      with(:query => hash_including({'apikey' => api_key, 'per_page' => '50'}), :headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
-      to_return(:status => [200, 'OK'], :body => bill_response, :headers => {})
+    stub_request(:get, 'https://congress.api.sunlightfoundation.com/bills').
+      with(query: hash_including({ apikey: api_key, per_page: '50' }),
+        headers: { 'Accept'=>'*/*', 'User-Agent'=>'Ruby' }).
+      to_return(status: [200, 'OK'], body: bill_response, headers: {})
 
-    stub_request(:get, "https://congress.api.sunlightfoundation.com/bills").
-      with(:query => {'apikey' => api_key, 'per_page' => '50', 'bill_id' => 'hr3461-111', 'page' => '2'}, :headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
-      to_return(:status => [200, 'OK'], :body => bill_response_page_2, :headers => {})
+    stub_request(:get, 'https://congress.api.sunlightfoundation.com/bills').
+      with(query: { apikey: api_key, per_page: '50', bill_id: 'hr3461-111', page: '2' },
+        headers: { 'Accept'=>'*/*', 'User-Agent'=>'Ruby' }).
+      to_return(status: [200, 'OK'], body: bill_response_page_2, headers: {})
 
-    stub_request(:get, "https://congress.api.sunlightfoundation.com/legislators").
-      with(:query => hash_including({'apikey' => api_key, 'per_page' => '50'}), :headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
-      to_return(:status => [200, 'OK'], :body => legislator_response, :headers => {})
+    stub_request(:get, 'https://congress.api.sunlightfoundation.com/legislators').
+      with(query: hash_including({ apikey: api_key, per_page: '50' }),
+        headers: { 'Accept'=>'*/*', 'User-Agent'=>'Ruby' }).
+      to_return(status: [200, 'OK'], body: legislator_response, headers: {})
 
-    stub_request(:get, "https://congress.api.sunlightfoundation.com/legislators").
-      with(:query => {'apikey' => api_key, 'per_page' => '50', 'query' => 'Fitzgerald'}, :headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
-      to_return(:status => [200, 'OK'], :body => legislator_no_results, :headers => {})
+    stub_request(:get, 'https://congress.api.sunlightfoundation.com/legislators').
+      with(query: { apikey: api_key, per_page: '50', query: 'Fitzgerald' },
+        headers: { 'Accept'=>'*/*', 'User-Agent'=>'Ruby' }).
+      to_return(status: [200, 'OK'], body: legislator_no_results, headers: {})
 
-    stub_request(:get, "https://congress.api.sunlightfoundation.com/dummy_path").
-      with(:query => {'apikey' => api_key, 'per_page' => '50' }, :headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
-      to_return(:status => [404, 'Not Found'], :body => '', :headers => {})
+    stub_request(:get, 'https://congress.api.sunlightfoundation.com/dummy_path').
+      with(query: { apikey: api_key, per_page: '50' },
+        headers: { 'Accept'=>'*/*', 'User-Agent'=>'Ruby' }).
+      to_return(status: [404, 'Not Found'], body: '', headers: {})
 
-    stub_request(:get, "https://congress.api.dummyapihttp.com").
-      with(:query => {'apikey' => api_key, 'per_page' => '50' }, :headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
+    stub_request(:get, 'https://congress.api.dummyapihttp.com').
+      with(query: { apikey: api_key, per_page: '50' },
+        headers: { 'Accept'=>'*/*', 'User-Agent'=>'Ruby' }).
       to_raise(SocketError.new('getaddrinfo: nodename nor servname provided, or not known'))
   end
 # The settings below are suggested to provide a good initial experience
