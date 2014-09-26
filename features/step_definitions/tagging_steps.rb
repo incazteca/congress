@@ -45,4 +45,3 @@ end
 Then(/^Tag button should read "(.*?)"$/) do |tag_text|
   expect(page).to have_content(tag_text)
 end
-

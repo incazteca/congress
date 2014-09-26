@@ -31,7 +31,6 @@ When(/^User searches by bill id$/) do
   click_button 'Search'
 end
 
-
 When(/^User searches by bioguide id$/) do
   fill_in 'search_term', with: 'B000574'
   click_button 'Search'
@@ -73,4 +72,3 @@ end
 Then(/^User should be taken to result page with default results$/) do
   expect(page).to have_content('Results')
 end
-

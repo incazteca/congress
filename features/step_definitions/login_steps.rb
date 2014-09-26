@@ -41,4 +41,3 @@ end
 Then(/^User should be notified of non-existant account$/) do
   expect(page).to have_content('Invalid email address or password.')
 end
-
